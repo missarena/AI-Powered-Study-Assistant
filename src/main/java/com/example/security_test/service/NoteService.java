@@ -13,7 +13,7 @@ public class NoteService {
     @Autowired
     private NoteRepository noteRepository;
     public List<Note> findByUser(User user) {
-        return noteRepository.findByUser(user);
+        return noteRepository.findByUserAndDeletedFalseOrderByPinnedDesc(user);
     }
 
     public void save(Note note) {
@@ -39,5 +39,9 @@ public class NoteService {
 
     public List<Note> findAll() {
        return noteRepository.findAll();
+    }
+
+    public List<Note> findDeletedNotes(User user) {
+        return noteRepository.findByUserAndDeletedTrue(user);
     }
 }

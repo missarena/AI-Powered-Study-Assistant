@@ -17,6 +17,9 @@ public class Note {
 
     private String title;
 
+    @Column(name = "pinned")
+    private boolean pinned = false;
+
     @Lob
     @Column(columnDefinition = "TEXT")
     private String content;
@@ -24,4 +27,6 @@ public class Note {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+
+    private boolean deleted=false;
 }

@@ -76,7 +76,9 @@ public class noteController {
     @GetMapping("/notes/delete/{id}")
     public String deleteNote(@PathVariable("id") Long id, Principal principal) {
         Note note = noteService.findById(id);
-        noteService.delete(id);
+        //Note note = noteService.findById(id);
+        note.setDeleted(true);
+        noteService.save(note);
         return "redirect:/dashboard";
     }
 
@@ -96,4 +98,30 @@ public class noteController {
 
         return "admin-notes";
     }
+
+    @GetMapping("/notes/pin/{id}")
+    public String togglePin(@PathVariable Long id) {
+        Note note = noteService.findById(id);
+        note.setPinned(!note.isPinned()); // toggle
+        noteService.save(note);
+        return "redirect:/MyNotes";
+    }
+
+    @GetMapping("/notes/trash")
+    public String trash(Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        List<Note> notes = noteService.findDeletedNotes(user);
+        model.addAttribute("notes", notes);
+        return "trash";
+    }
+
+    @GetMapping("/notes/restore/{id}")
+    public String restore(@PathVariable Long id) {
+        Note note = noteService.findById(id);
+        note.setDeleted(false);
+        noteService.save(note);
+        return "redirect:/notes/trash";
+    }
+
+
 }

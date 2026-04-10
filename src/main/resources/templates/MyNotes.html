@@ -67,6 +67,8 @@
             <a href="#">📒 My Notes</a>
             <a th:href="@{/notes/new}">➕ Add New Note</a>
             <a href="#">⚙ Settings</a>
+            <a th:href="@{/notes/trash}">🗑 Trash</a>
+
         </div>
 
 
@@ -91,15 +93,27 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="mb-0" th:text="${note.title}">Note Title</h5>
 
-                            <a th:href="@{/notes/view/{id}(id=${note.id})}">
-                                <i class="fa-solid fa-eye"></i>
-                            </a>
+                            <div>
+                                <!-- 👁 View -->
+                                <a th:href="@{/notes/view/{id}(id=${note.id})}">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+
+                                <!-- 📌 Pin -->
+                                <a th:href="@{/notes/pin/{id}(id=${note.id})}" class="ms-2">
+                                    <i class="fa-solid fa-thumbtack"
+                                       th:style="${note.pinned} ? 'color:gold' : 'color:gray'">
+                                    </i>
+                                </a>
+                            </div>
                         </div>
                         <p th:text="${#strings.abbreviate(note.content, 200)}"></p>
                         <div class="note-actions">
                             <a th:href="@{/notes/edit/{id}(id=${note.id})}" class="btn btn-sm btn-primary">Edit</a>
                             <!-- CORRECT -->
-                            <a th:href="@{/notes/delete/{id}(id=${note.id})}" class="btn btn-sm btn-danger">Delete</a>
+                            <a th:href="@{/notes/delete/{id}(id=${note.id})}" class="btn btn-danger btn-sm">
+                                Move to Trash
+                            </a>
                             <a th:href="@{/ai/summarize/{id}(id=${note.id})}" class="btn btn-sm bg-light"> Summarize with AI</a>
                             <a th:href="@{/ai/summary/{id}(id=${note.id})}" class="btn btn-sm bg-light">Saved AI summary</a>
                         </div>
