@@ -12,34 +12,87 @@ import java.util.List;
 @Service
 public class AIService {
 
-    private ChatClient chatClient;
+    private final ChatClient chatClient;
+
     @Autowired
     private AiResponseRepository aiResponseRepository;
 
-    public AIService(ChatClient.Builder builder){
+    public AIService(ChatClient.Builder builder) {
         this.chatClient = builder.build();
     }
 
-    public String summarize(String noteContent,Long noteId){
-        String summary=chatClient.prompt().user("Summarize in 5 bullet points:\n"+noteContent).call().content();
-        AiResponse aiResponse=new AiResponse();
+    // ---------------- SUMMARIZATION ----------------
+    public String summarize(String noteContent, Long noteId) {
+
+        String summary = chatClient.prompt()
+                .user("Summarize in 5 bullet points:\n" + noteContent)
+                .call()
+                .content();
+
+        AiResponse aiResponse = new AiResponse();
         aiResponse.setNoteId(noteId);
         aiResponse.setType("SUMMARY");
         aiResponse.setResponse(summary);
         aiResponse.setCreatedAt(LocalDateTime.now());
 
         aiResponseRepository.save(aiResponse);
-        return summary;
 
+        return summary;
     }
 
-    public String getLatestSummary(Long noteId){
-        List<AiResponse> list=aiResponseRepository.findByNoteIdAndTypeOrderByCreatedAtDesc(noteId,"SUMMARY");
-        if(list.size()==0){
+    // ---------------- QUESTION GENERATOR ----------------
+    public String generateQuestions(String content) {
+
+        if (content == null || content.isBlank()) {
+            return "Content cannot be empty";
+        }
+
+        String prompt = buildJsonPrompt(content);
+
+        return chatClient.prompt()
+                .user(prompt)
+                .call()
+                .content();
+    }
+
+    private String buildJsonPrompt(String content) {
+        return """
+    You are an expert teacher.
+
+    Generate questions from the given content and return ONLY valid JSON.
+
+    STRICT FORMAT:
+    {
+      "mcqs": [
+        {
+          "question": "",
+          "options": ["A", "B", "C", "D"],
+          "answer": ""
+        }
+      ],
+      "shortQuestions": [],
+      "conceptualQuestions": []
+    }
+
+    Rules:
+    - ONLY JSON output
+    - No explanation, no markdown
+    - Ensure valid JSON
+
+    CONTENT:
+    """ + content;
+    }
+
+    // ---------------- GET SUMMARY ----------------
+    public String getLatestSummary(Long noteId) {
+
+        List<AiResponse> list =
+                aiResponseRepository.findByNoteIdAndTypeOrderByCreatedAtDesc(noteId, "SUMMARY");
+
+        if (list.isEmpty()) {
             return "No summary found for this note";
         }
+
         return list.get(0).getResponse();
-
     }
-
 }

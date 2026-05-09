@@ -3,12 +3,10 @@ package com.example.security_test.controllers;
 import com.example.security_test.Entity.Note;
 import com.example.security_test.service.AIService;
 import com.example.security_test.service.NoteService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/ai")
@@ -51,6 +49,11 @@ public class AIController {
         model.addAttribute("summary", summary);
         model.addAttribute("noteId", noteId);
         return "ai-summary";
+    }
+
+    @PostMapping("/generate-questions")
+    public ResponseEntity<String> generate(@RequestBody String content) {
+        return ResponseEntity.ok(aiService.generateQuestions(content));
     }
 
 }
