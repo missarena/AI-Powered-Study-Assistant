@@ -47,42 +47,33 @@ public class AIService {
             return "Content cannot be empty";
         }
 
-        String prompt = buildJsonPrompt(content);
+        String prompt = """
+        Generate questions from the following content.
+
+        Return in this exact readable format only:
+
+        MCQs:
+        1. Question?
+        A. option
+        B. option
+        C. option
+        D. option
+        Answer: A
+
+        Short Questions:
+        1. Question?
+
+        Conceptual Questions:
+        1. Question?
+
+        Content:
+        """ + content;
 
         return chatClient.prompt()
                 .user(prompt)
                 .call()
                 .content();
     }
-
-    private String buildJsonPrompt(String content) {
-        return """
-    You are an expert teacher.
-
-    Generate questions from the given content and return ONLY valid JSON.
-
-    STRICT FORMAT:
-    {
-      "mcqs": [
-        {
-          "question": "",
-          "options": ["A", "B", "C", "D"],
-          "answer": ""
-        }
-      ],
-      "shortQuestions": [],
-      "conceptualQuestions": []
-    }
-
-    Rules:
-    - ONLY JSON output
-    - No explanation, no markdown
-    - Ensure valid JSON
-
-    CONTENT:
-    """ + content;
-    }
-
     // ---------------- GET SUMMARY ----------------
     public String getLatestSummary(Long noteId) {
 

@@ -75,7 +75,33 @@
 
     </div>
    <br>
+
     <a th:href="@{/dashboard}" class="btn btn-primary">Back to My Notes</a>
+
+    <br>
+    <br>
+    <form th:action="@{/ai/notes/{id}/generate-questions(id=${note.id})}" method="post">
+        <button type="submit" class="btn btn-primary">
+            Generate Questions
+        </button>
+    </form>
+    <div th:if="${generatedQuestions != null}" class="mt-4">
+    <h3 class="mb-3">Generated Questions</h3>
+
+    <div class="card p-4" style="background-color:#1e1e1e; border-radius:12px;">
+        <pre th:text="${generatedQuestions}"
+             style="
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                color: #f8f9fa;
+                font-size: 15px;
+                line-height: 1.6;
+                margin: 0;
+             ">
+        </pre>
+    </div>
+</div>
+
 </div>
 
 <!-- Bootstrap JS -->

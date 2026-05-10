@@ -3,6 +3,9 @@ package com.example.security_test.controllers;
 import com.example.security_test.Entity.Note;
 import com.example.security_test.service.AIService;
 import com.example.security_test.service.NoteService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,9 +54,17 @@ public class AIController {
         return "ai-summary";
     }
 
-    @PostMapping("/generate-questions")
-    public ResponseEntity<String> generate(@RequestBody String content) {
-        return ResponseEntity.ok(aiService.generateQuestions(content));
+    @PostMapping("/notes/{id}/generate-questions")
+    public String generateQuestions(@PathVariable Long id, Model model) {
+
+        Note note = noteService.getNoteById(id);
+
+        String generatedQuestions = aiService.generateQuestions(note.getContent());
+
+        model.addAttribute("note", note);
+        model.addAttribute("generatedQuestions", generatedQuestions);
+
+        return "view-note";
     }
 
 }
