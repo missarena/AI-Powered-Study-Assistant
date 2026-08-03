@@ -1,140 +1,239 @@
-# 🤖 AI Powered Study Assistant
+# 📚 AI-Powered Study Assistant
 
-An intelligent and scalable **AI Powered Study Assistant** built using Spring Boot, Spring Security, Thymeleaf, and MySQL.
-
-This platform is designed as a modular academic system where study content management is one of the core features, with future expansion toward AI-driven learning tools like summarization, recommendations, and chatbot assistance.
+An AI-powered study assistant built using **Spring Boot**, **Spring Security**, **Thymeleaf**, **MySQL**, and **Spring AI (Ollama)**. The application allows users to securely manage notes and generate AI-powered summaries. It is deployed on **AWS EC2** with **Nginx** as a reverse proxy and managed using **systemd**.
 
 ---
 
-# 📌 Overview
+## 🚀 Live Demo
 
-The AI Powered Study Assistant is a role-based web application designed to help users manage study-related content securely and efficiently.
+**URL:** http://YOUR_PUBLIC_IP
 
-It follows a clean MVC architecture and implements secure authentication and authorization using Spring Security.
-
-The system is designed to scale into a complete AI-driven academic assistant.
+> Example: http://13.53.245.80
 
 ---
 
-# 🚀 Features
+## ✨ Features
 
-## 🔐 Authentication & Authorization
-- User Registration
-- Login System
-- Role-Based Access Control (USER / ADMIN)
-- BCrypt Password Encryption
-- Secure Session Management
-- Role-based Redirection after Login
-
-## 📝 Study Content Module
-- Create Study Entries
-- Edit Entries
-- Delete Entries
-- View Individual Entries
-- Search Functionality
-- User-specific Content Access
-
-## 👑 Admin Dashboard
-- View All Registered Users
-- Monitor All Study Entries
-- Restricted Admin Endpoints
-- Full System Management
+- 🔐 User Registration & Login
+- 👤 Role-Based Authentication & Authorization
+- 📝 Create, Update & Delete Notes
+- 🤖 AI-Powered Note Summarization using Ollama
+- 🔒 Password Encryption with BCrypt
+- 💾 MySQL Database Integration
+- 🌐 Responsive UI with Thymeleaf
+- ☁️ AWS EC2 Deployment
+- ⚡ Nginx Reverse Proxy
+- 🔄 Automatic Application Startup using systemd
 
 ---
 
-# 🏗️ System Architecture
+## 🛠️ Tech Stack
 
-This project follows a Layered MVC Architecture:
+### Backend
+- Java 21
+- Spring Boot 3.2
+- Spring Security
+- Spring Data JPA
+- Hibernate
+- Spring AI
 
-- Controller Layer → Handles HTTP Requests
-- Service Layer → Business Logic
-- Repository Layer → Database Interaction
-- Entity Layer → JPA Models
-- Configuration Layer → Security & Application Setup
+### Frontend
+- Thymeleaf
+- HTML5
+- CSS3
+- Bootstrap
+
+### Database
+- MySQL
+
+### AI
+- Ollama
+- Phi Model
+
+### Build Tool
+- Maven
+
+### Deployment
+- AWS EC2 (Ubuntu)
+- Nginx
+- systemd
 
 ---
 
-# 🛠️ Tech Stack
+## 📁 Project Structure
 
-- Backend: Spring Boot
-- Security: Spring Security
-- Frontend: Thymeleaf, HTML, CSS, Bootstrap
-- Database: MySQL
-- ORM: Spring Data JPA (Hibernate)
-- Build Tool: Maven
-
----
-
-# 📂 Project Structure
-
-AI-Powered-Study-Assistant/
-│
-├── src/
-│   ├── main/
-│   │   ├── java/com/example/
-│   │   │   ├── controllers/
-│   │   │   ├── service/
-│   │   │   ├── repository/
-│   │   │   ├── Entity/
-│   │   │   ├── securityConfig
-|   |   |   |--customeSuccessHandler
-│   │   │   └── AiPoweredStudyAssistantApplication.java
-│   │   │
-│   │   └── resources/
-│   │       ├── templates/
-│   │       ├── static/
-│   │       ├── application.properties
+```text
+src
+├── main
+│   ├── java
+│   │   ├── config
+│   │   ├── controller
+│   │   ├── dto
+│   │   ├── entity
+│   │   ├── repository
+│   │   ├── security
+│   │   ├── service
+│   │   └── SecurityTestApplication.java
 │   │
-│   └── test/
-│
-├── pom.xml
-├── README.md
-└── .gitignore
-
----
-
-# 🔄 Role-Based Workflow
-
-## USER
-- Access personal dashboard
-- Manage own study content
-- Perform search operations
-- Redirected to /home after login
-
-## ADMIN
-- Access admin dashboard
-- View and manage all users
-- Monitor all study content
-- Redirected to /admin/dashboard after login
-
----
-
-# 🔐 Security Implementation
-
-- Custom UserDetailsService
-- BCrypt Password Encoder
-- Role-based URL Authorization
-- CSRF Protection Enabled
-- Secure Authentication Flow
-
-Example Security Configuration:
-
-```
-.requestMatchers("/admin/**").hasRole("ADMIN")
-.requestMatchers("/user/**").hasRole("USER")
+│   └── resources
+│       ├── static
+│       ├── templates
+│       ├── application.properties
+│       └── ...
 ```
 
-# 🧠 Future Enhancements
+---
 
-- AI-based Content Summarization
-- Smart Question Generator
-- Personalized Study Recommendations
-- Performance Analytics Dashboard
-- AI Chatbot Integration
-- File & PDF Analysis
-- REST API with JWT Authentication
-- Cloud Deployment
+## ⚙️ Installation
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/YOUR_GITHUB_USERNAME/AI-Powered-Study-Assistant.git
+cd AI-Powered-Study-Assistant
+```
+
+### 2. Configure MySQL
+
+Create a database:
+
+```sql
+CREATE DATABASE study_db;
+```
+
+Update `application.properties`:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/study_db
+spring.datasource.username=YOUR_USERNAME
+spring.datasource.password=YOUR_PASSWORD
+```
 
 ---
 
+### 3. Build the Project
 
+```bash
+mvn clean package
+```
+
+---
+
+### 4. Run the Application
+
+```bash
+java -jar target/security_test-0.0.1-SNAPSHOT.jar
+```
+
+Application will start at:
+
+```
+http://localhost:8080
+```
+
+---
+
+# ☁️ AWS Deployment
+
+The application has been successfully deployed on **AWS EC2** using the following setup:
+
+- Ubuntu Server
+- Java 21
+- MySQL
+- Nginx Reverse Proxy
+- Spring Boot Executable JAR
+- systemd Service
+
+Deployment Flow:
+
+```
+Developer
+     │
+     ▼
+ GitHub Repository
+     │
+     ▼
+ Maven Build
+     │
+     ▼
+ Executable JAR
+     │
+     ▼
+ Upload to EC2
+     │
+     ▼
+ Spring Boot Service
+     │
+     ▼
+ Nginx
+     │
+     ▼
+ Browser
+```
+
+---
+
+## 📸 Screenshots
+
+### Login Page
+
+> Add screenshot here
+
+![Login](screenshots/login.png)
+
+---
+
+### Dashboard
+
+> Add screenshot here
+
+![Dashboard](screenshots/dashboard.png)
+
+---
+
+### Notes
+
+> Add screenshot here
+
+![Notes](screenshots/notes.png)
+
+---
+
+### AI Summary
+
+> Add screenshot here
+
+![AI Summary](screenshots/ai-summary.png)
+
+---
+
+## 🔮 Future Enhancements
+
+- Email Verification
+- Password Reset
+- JWT Authentication
+- Docker Deployment
+- GitHub Actions CI/CD
+- HTTPS with Let's Encrypt
+- Custom Domain
+- Redis Integration
+- Note Sharing
+- PDF Export
+
+---
+
+## 👩‍💻 Author
+
+**Sadiya**
+
+GitHub:
+https://github.com/YOUR_GITHUB_USERNAME
+
+LinkedIn:
+https://linkedin.com/in/YOUR_LINKEDIN_PROFILE
+
+---
+
+## ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub!
