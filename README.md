@@ -173,39 +173,11 @@ Developer
 
 ---
 
-## 📸 Screenshots
+<img width="1920" height="1080" alt="Screenshot (411)" src="https://github.com/user-attachments/assets/d0b477c3-368d-429c-aa7b-464e9c521334" /><img width="1920" height="1080" alt="Screenshot (424)" src="https://github.com/user-attachments/assets/0dc6f219-8da7-43e1-89f2-3450fc3af13c" />
+<img width="1920" height="1080" alt="Screenshot (420)" src="https://github.com/user-attachments/assets/e5bdc3c2-7328-455e-a770-4ad0e6720f30" />
+<img width="1920" height="1080" alt="Screenshot (416)" src="https://github.com/user-attachments/assets/7224b052-1551-4640-9ef5-ddc98aaa329c" />
 
-### Login Page
 
-> Add screenshot here
-
-![Login](screenshots/login.png)
-
----
-
-### Dashboard
-
-> Add screenshot here
-
-![Dashboard](screenshots/dashboard.png)
-
----
-
-### Notes
-
-> Add screenshot here
-
-![Notes](screenshots/notes.png)
-
----
-
-### AI Summary
-
-> Add screenshot here
-
-![AI Summary](screenshots/ai-summary.png)
-
----
 
 ## 🔮 Future Enhancements
 
