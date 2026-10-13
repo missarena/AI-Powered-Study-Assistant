@@ -89,7 +89,7 @@ src
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/AI-Powered-Study-Assistant.git
+git clone https://github.com/missarena/AI-Powered-Study-Assistant.git
 cd AI-Powered-Study-Assistant
 ```
 
@@ -199,12 +199,7 @@ Developer
 **Sadiya**
 
 GitHub:
-https://github.com/YOUR_GITHUB_USERNAME
-
-LinkedIn:
-https://linkedin.com/in/YOUR_LINKEDIN_PROFILE
-
----
+https://github.com/missarena
 
 ## ⭐ Support
 
